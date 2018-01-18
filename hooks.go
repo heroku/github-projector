@@ -59,7 +59,7 @@ func handleHook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	d := json.NewDecoder(r.Body)
-	if err := d.Decode(i); err != nil {
+	if err := d.Decode(&i); err != nil {
 		respondWithError(w, errors.Wrap(err, "decoding error"))
 		return
 	}
