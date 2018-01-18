@@ -1,20 +1,10 @@
 package main
 
 import (
-	"log"
+	"io"
 	"net/http"
-	"net/http/httputil"
 	"os"
 )
-
-func handleHook(w http.ResponseWriter, r *http.Request) {
-	b, err := httputil.DumpRequest(r, true)
-	if err != nil {
-		log.Println("error dumping request:", err)
-		return
-	}
-	log.Printf("%s", b)
-}
 
 func main() {
 	var port string
@@ -23,6 +13,11 @@ func main() {
 	}
 
 	http.HandleFunc("/webhooks", handleHook)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, "Work In Progress\n")
+		io.WriteString(w, "\n")
+		io.WriteString(w, "See github.com/freeformz/github-projector\n")
+	})
 
 	http.ListenAndServe(":"+port, nil)
 }
