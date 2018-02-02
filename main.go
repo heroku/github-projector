@@ -51,6 +51,7 @@ func main() {
 		"ssl.key.location":         filepath.Join(h, hkafka.DefaultClientCertKeyFileName),
 		"ssl.certificate.location": filepath.Join(h, hkafka.DefaultClientCertFileName),
 		"ssl.ca.location":          filepath.Join(h, hkafka.DefaultRootCAFileName),
+		"socket.keepalive.enable":  "true",
 	})
 	if err != nil {
 		log.Fatal("error creating kafka producer: ", err)
