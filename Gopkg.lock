@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  name = "github.com/confluentinc/confluent-kafka-go"
+  packages = ["kafka"]
+  revision = "f696f02dcbb04d95b103c5b848bb15f749a996f7"
+  version = "v0.11.0"
+
+[[projects]]
   name = "github.com/garyburd/redigo"
   packages = [
     "internal",
@@ -23,13 +29,20 @@
   revision = "53e6ce116135b80d037921a7fdd5138cf32d7a8a"
 
 [[projects]]
-  branch = "master"
+  branch = "hkafka"
   name = "github.com/heroku/x"
   packages = [
+    "hkafka",
     "hredis",
     "hredis/redigo"
   ]
-  revision = "705849e307dd75c91728463dea5bfd08ef493e64"
+  revision = "170e61d88907aeb725e80d17dbb8a04d038e5070"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/joeshaw/envdecode"
+  packages = ["."]
+  revision = "d5f34bca07f37a60f1b86069b0806282b5c58fea"
 
 [[projects]]
   name = "github.com/pkg/errors"
@@ -40,6 +53,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "044e9cbe5b054b43c4b22368f1b463542c501418b14e0132dae0cceac091402d"
+  inputs-digest = "bd3737cfba73225dac353cd57ec9c43c9aa9f9ac8e0059dc00aec8f8ac455aee"
   solver-name = "gps-cdcl"
   solver-version = 1

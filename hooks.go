@@ -7,11 +7,11 @@ import (
 	"os"
 
 	"github.com/google/go-github/github"
-	"github.com/heroku/x/hredis/redigo"
 	"github.com/pkg/errors"
 
 	"github.com/garyburd/redigo/redis"
 	"github.com/heroku/x/hredis"
+	"github.com/heroku/x/hredis/redigo"
 )
 
 var rp *redis.Pool
@@ -69,5 +69,4 @@ func handleHook(w http.ResponseWriter, r *http.Request) {
 		respondWithError(w, errors.Wrap(err, "encoding error"))
 		return
 	}
-	log.Printf("%s", b)
 }
