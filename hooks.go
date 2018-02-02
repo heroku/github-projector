@@ -6,12 +6,12 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/google/go-github/github"
-	"github.com/pkg/errors"
-
+	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/garyburd/redigo/redis"
+	"github.com/google/go-github/github"
 	"github.com/heroku/x/hredis"
 	"github.com/heroku/x/hredis/redigo"
+	"github.com/pkg/errors"
 )
 
 var rp *redis.Pool
@@ -64,9 +64,28 @@ func handleHook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := json.Marshal(i)
+	b, err := json.Marshal(i)
 	if err != nil {
 		respondWithError(w, errors.Wrap(err, "encoding error"))
 		return
 	}
+
+	deliveryChan := make(chan kafka.Event)
+	t := kafka.TopicPartition{Topic: &kafkaTopic, Partition: kafka.PartitionAny}
+	if err := kafkaProducer.Produce(&kafka.Message{TopicPartition: t, Value: b}, deliveryChan); err != nil {
+		respondWithError(w, errors.Wrap(err, "writting to kafka"))
+		return
+	}
+	dm := <-deliveryChan
+	m, ok := dm.(*kafka.Message)
+	if !ok {
+		respondWithError(w, errors.New("unable to convert to *kafka.Message)"))
+		return
+	}
+	if m.TopicPartition.Error != nil {
+		respondWithError(w, errors.Wrap(err, "delivery error"))
+		return
+	}
+	close(deliveryChan)
+	log.Println("delivered event to kafka: ", string(b))
 }

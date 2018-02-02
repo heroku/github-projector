@@ -15,12 +15,18 @@ import (
 
 var (
 	kafkaProducer *kafka.Producer
+	kafkaTopic    string
 )
 
 func main() {
 	var port string
 	if port = os.Getenv("PORT"); port == "" {
 		port = "8080"
+	}
+
+	kafkaTopic = os.Getenv("KAFKA_TOPIC")
+	if kafkaTopic == "" {
+		log.Fatal("KAFAK_TOPIC is empty or missing")
 	}
 
 	hkc, err := hkafka.NewConfigFromEnv()
