@@ -1,5 +1,5 @@
 [metadata.heroku]
-    root-package = "github.com/freeformz/github-projector"
+    root-package = "github.com/heroku/github-projector"
     additional-tools = ["librdkafka"]
 
 # Gopkg.toml example
