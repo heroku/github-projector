@@ -64,7 +64,7 @@ func handleHook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b, err := json.Marshal(i)
+	_, err := json.Marshal(i)
 	if err != nil {
 		respondWithError(w, errors.Wrap(err, "encoding error"))
 		return
