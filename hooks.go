@@ -4,28 +4,11 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
-	"github.com/garyburd/redigo/redis"
 	"github.com/google/go-github/github"
-	"github.com/heroku/x/hredis"
-	"github.com/heroku/x/hredis/redigo"
 	"github.com/pkg/errors"
 )
-
-var rp *redis.Pool
-
-func init() {
-	rurl, err := hredis.RedissURL(os.Getenv("REDIS_URL"))
-	if err != nil {
-		log.Fatal("Error getting redis url:", err)
-	}
-	rp, err = redigo.NewRedisPoolFromURL(rurl)
-	if err != nil {
-		log.Fatalf("error making redis pool from url (%s): %s", rurl, err.Error())
-	}
-}
 
 func respondWithError(w http.ResponseWriter, err error) {
 	log.Println("hook error: ", err.Error())

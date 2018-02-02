@@ -8,9 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/heroku/x/hkafka"
-
 	"github.com/confluentinc/confluent-kafka-go/kafka"
+	"github.com/heroku/x/hkafka"
 )
 
 var (
